@@ -5,10 +5,12 @@ var car = {
   location: {
     x: null,
     y: null
-  }
+  },
+  status: 'stop',
+  id: null
 };
 
-function turnCar(event) {
+function moveCar(event) {
   if (event.key === 'ArrowLeft') {
     image.className = 'left';
   } else if (event.key === 'ArrowRight') {
@@ -19,15 +21,21 @@ function turnCar(event) {
     image.className = 'down';
   }
   if (event.key === ' ') {
-    setInterval(forward, 16);
+    if (car.status === 'stop') {
+      car.id = setInterval(forward, 16);
+      car.status = 'start';
+    } else if (car.status === 'start') {
+      car.status = 'stop';
+      clearInterval(car.id);
+    }
   }
 }
 
 function forward(event) {
   var currentX = parseInt(image.style.left);
   car.location.x = currentX;
-  car.location.x++;
+  car.location.x += 5;
   image.style.left = car.location.x + 'px';
 }
 
-window.addEventListener('keydown', turnCar);
+window.addEventListener('keydown', moveCar);
