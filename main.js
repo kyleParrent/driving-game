@@ -18,6 +18,9 @@ function turnCar(event) {
   } else if (event.key === 'ArrowDown') {
     image.className = 'down';
   }
+  if (event.key === ' ') {
+    setInterval(forward, 16);
+  }
 }
 
 function forward(event) {
@@ -27,11 +30,4 @@ function forward(event) {
   image.style.left = car.location.x + 'px';
 }
 
-function moveCar(event) {
-  if (event.key === ' ') {
-    setInterval(forward, 16);
-  }
-}
-
 window.addEventListener('keydown', turnCar);
-window.addEventListener('keydown', moveCar);
